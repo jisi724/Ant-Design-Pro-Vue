@@ -110,7 +110,9 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  NProcess.start();
+  if (to.path !== from.path) {
+    NProcess.start();
+  }
   next();
 });
 

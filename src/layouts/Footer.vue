@@ -1,5 +1,7 @@
 <template>
-  <div>Footer</div>
+  <div>
+    Ant Design Vue ©2019 Created by Ethan
+  </div>
 </template>
 
 <script>
