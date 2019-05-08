@@ -12,6 +12,7 @@ const router = new Router({
   routes: [
     {
       path: "/user",
+      hideInMenu: true,
       component: () =>
         import(/* webpackChunkName: "layout" */ "./layouts/UserLayout"),
       children: [
@@ -46,57 +47,63 @@ const router = new Router({
         {
           path: "/dashboard",
           name: "dashboard",
+          meta: { icon: "dashboard", title: "Dashboard" },
           component: { render: h => h("router-view") },
           children: [
             {
               path: "/dashboard/analysis",
               name: "analysis",
+              meta: { title: "Analysis Page" },
               component: () =>
                 import(/* webpackChunkName: "dashboard" */ "./views/Dashboard/Analysis")
             }
           ]
-        }
-      ]
-    },
-    // form
-    {
-      path: "/form",
-      name: "form",
-      component: { render: h => h("router-view") },
-      children: [
-        {
-          path: "/form/basic-form",
-          name: "basicform",
-          component: () =>
-            import(/* webpackChunkName: "form" */ "./views/Forms/BasicForm")
         },
+        // form
         {
-          path: "/form/step-form",
-          name: "stepform",
-          component: () =>
-            import(/* webpackChunkName: "form" */ "./views/Forms/StepForm"),
+          path: "/form",
+          name: "form",
+          component: { render: h => h("router-view") },
+          meta: { icon: "form", title: "Form" },
           children: [
             {
+              path: "/form/basic-form",
+              name: "basicform",
+              meta: { title: "Basic Form" },
+              component: () =>
+                import(/* webpackChunkName: "form" */ "./views/Forms/BasicForm")
+            },
+            {
               path: "/form/step-form",
-              redirect: "/form/step-form/info"
-            },
-            {
-              path: "/form/step-form/info",
-              name: "info",
+              name: "stepform",
+              meta: { title: "Steps Form" },
+              hideChildrenInMenu: true,
               component: () =>
-                import(/* webpackChunkName: "form" */ "./views/Forms/StepForm/Step1")
-            },
-            {
-              path: "/form/step-form/confirm",
-              name: "confirm",
-              component: () =>
-                import(/* webpackChunkName: "form" */ "./views/Forms/StepForm/Step2")
-            },
-            {
-              path: "/form/step-form/result",
-              name: "result",
-              component: () =>
-                import(/* webpackChunkName: "form" */ "./views/Forms/StepForm/Step3")
+                import(/* webpackChunkName: "form" */ "./views/Forms/StepForm"),
+              children: [
+                {
+                  path: "/form/step-form",
+                  redirect: "/form/step-form/info"
+                },
+                {
+                  path: "/form/step-form/info",
+                  name: "info",
+                  component: () =>
+                    import(/* webpackChunkName: "form" */ "./views/Forms/StepForm/Step1")
+                },
+                {
+                  path: "/form/step-form/confirm",
+                  name: "confirm",
+                  component: () =>
+                    import(/* webpackChunkName: "form" */ "./views/Forms/StepForm/Step2")
+                },
+                {
+                  path: "/form/step-form/result",
+                  name: "result",
+                  component: () =>
+                    import(/* webpackChunkName: "form" */ "./views/Forms/StepForm/Step3")
+                }
+              ]
             }
           ]
         }
@@ -104,6 +111,7 @@ const router = new Router({
     },
     {
       path: "*",
+      hideInMenu: true,
       component: NotFound
     }
   ]
