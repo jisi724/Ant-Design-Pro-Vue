@@ -1,7 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import NotFound from "./views/404";
+import Forbidden from "./views/403";
 import NProcess from "nprogress";
+import findLast from "lodash/findLast";
+import { check, isLogin } from "./utils/auth";
+import { Notification } from "ant-design-vue";
 import "nprogress/nprogress.css";
 
 Vue.use(Router);
@@ -36,6 +40,7 @@ const router = new Router({
     },
     {
       path: "/",
+      meta: { authority: ["admin", "guest", "user"] },
       component: () =>
         import(/* webpackChunkName: "layout" */ "./layouts/BasicLayout"),
       children: [
@@ -64,7 +69,7 @@ const router = new Router({
           path: "/form",
           name: "form",
           component: { render: h => h("router-view") },
-          meta: { icon: "form", title: "Form" },
+          meta: { icon: "form", title: "Form", authority: ["admin"] },
           children: [
             {
               path: "/form/basic-form",
@@ -111,8 +116,15 @@ const router = new Router({
     },
     {
       path: "*",
+      name: "404",
       hideInMenu: true,
       component: NotFound
+    },
+    {
+      path: "/403",
+      name: "403",
+      hideInMenu: true,
+      component: Forbidden
     }
   ]
 });
@@ -120,6 +132,23 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     NProcess.start();
+  }
+  const record = findLast(to.matched, record => record.meta.authority);
+  if (record && !check(record.meta.authority)) {
+    if (!isLogin() && to.path !== "/user/login") {
+      next({
+        path: "/user/login"
+      });
+    } else if (to.path !== "/403") {
+      Notification.error({
+        message: "403",
+        description: "Please contact admin."
+      });
+      next({
+        path: "/403"
+      });
+    }
+    NProcess.done();
   }
   next();
 });
