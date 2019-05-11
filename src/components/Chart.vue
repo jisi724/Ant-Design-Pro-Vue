@@ -30,7 +30,7 @@ export default {
     this.renderChart();
   },
   beforeDestroy() {
-    this.chart.destory();
+    this.chart.destroy();
     this.chart = null;
   },
   methods: {
