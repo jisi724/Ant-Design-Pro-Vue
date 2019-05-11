@@ -17,6 +17,36 @@
           placeholder="Please fill pay accoun t"
         ></a-input>
       </a-form-item>
+
+      <a-form-item
+        label="Receiver Account"
+        :labelCol="formItemLayout.labelCol"
+        :wrapperCol="formItemLayout.wrapperCol"
+      >
+        <ReceiverAccount
+          v-decorator="[
+            'receiveAccount',
+            {
+              initialValue: step.receiveAccount,
+              rules: [
+                {
+                  required: true,
+                  message: 'Please fill receiver account.',
+                  validator: (rule, value, callback) => {
+                    if (value && value.number) {
+                      callback();
+                    } else {
+                      callback(false);
+                    }
+                  }
+                }
+              ]
+            }
+          ]"
+          placeholder="Please fill receiver account"
+        ></ReceiverAccount>
+      </a-form-item>
+
       <a-form-item>
         <a-button type="primary" @click="handleSubmit">Next Step</a-button>
       </a-form-item>
@@ -25,7 +55,10 @@
 </template>
 
 <script>
+import ReceiverAccount from "@/components/ReceiverAccount";
+
 export default {
+  components: { ReceiverAccount },
   data() {
     this.form = this.$form.createForm(this);
     return {

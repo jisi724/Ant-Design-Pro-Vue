@@ -4,7 +4,11 @@ import request from "../../utils/request";
 const state = {
   step: {
     payAccount: 123456,
-    payCode: ""
+    payCode: "",
+    receiveAccount: {
+      type: "Visa",
+      number: ""
+    }
   }
 };
 
