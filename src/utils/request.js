@@ -9,7 +9,15 @@ function request(options) {
         response: { status, statusText }
       } = error;
       Notification.error({
-        message: status,
+        // try jsx to custom front end
+        //message: status,
+        // eslint-disable-next-line no-unused-vars
+        message: h => (
+          <div>
+            Custom Error <span style="color: red;">{status}</span> :{" "}
+            {options.url}
+          </div>
+        ),
         description: statusText
       });
 
