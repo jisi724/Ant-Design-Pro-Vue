@@ -28,6 +28,12 @@ Vue.use(Form);
 Vue.use(Input);
 Vue.use(Select);
 
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: "//at.alicdn.com/t/font_1190365_5pyenz7y7dk.js"
+});
+
+Vue.component("IconFont", IconFont);
+
 // Register global directive with "use"
 Vue.use(Auth);
 
