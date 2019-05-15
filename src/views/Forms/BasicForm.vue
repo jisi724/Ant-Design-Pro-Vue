@@ -98,7 +98,7 @@ export default {
     handleSubmit() {
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log(values);
+          // console.log(values);
           // direct assign value
           // this.fieldA = values.fieldA
 

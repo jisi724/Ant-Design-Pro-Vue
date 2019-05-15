@@ -6,6 +6,7 @@ import VueI18n from "vue-i18n";
 import zhCN from "./locale/zhCN";
 import enUS from "./locale/enUS";
 import queryString from "query-string";
+import VueHighlightJS from "vue-highlightjs";
 import {
   Button,
   Layout,
@@ -37,6 +38,7 @@ Vue.use(Select);
 Vue.use(LocaleProvider);
 Vue.use(Dropdown);
 Vue.use(DatePicker);
+Vue.use(VueHighlightJS);
 
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1190365_5pyenz7y7dk.js"
@@ -56,6 +58,8 @@ const i18n = new VueI18n({
     enUS: { message: enUS }
   }
 });
+
+import "highlight.js/styles/github.css";
 
 new Vue({
   i18n,

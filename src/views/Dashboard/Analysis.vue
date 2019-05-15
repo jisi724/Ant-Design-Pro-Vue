@@ -5,12 +5,14 @@
 
     <h3>Analysis</h3>
     <Chart :chartData="chartData" />
+    <pre v-highlightjs="chartCode"><code class="html"></code></pre>
   </div>
 </template>
 
 <script>
 import Chart from "../../components/Chart";
 import request from "../../utils/request.js";
+import chartCode from "!!raw-loader!../../components/Chart";
 export default {
   data() {
     return {
@@ -39,7 +41,8 @@ export default {
             borderWidth: 1
           }
         ]
-      }
+      },
+      chartCode
     };
   },
   mounted() {
