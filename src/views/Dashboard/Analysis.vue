@@ -1,6 +1,9 @@
 <template>
   <div>
-    Analysis
+    {{ $t("message")["app.dashboard.analysis.timeLabel"] }}:
+    <a-date-picker></a-date-picker>
+
+    <h3>Analysis</h3>
     <Chart :chartData="chartData" />
   </div>
 </template>
@@ -66,4 +69,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+h3 {
+  margin-top: 20px;
+}
+</style>
